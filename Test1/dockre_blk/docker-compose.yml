@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: '3.2'
+
+services:
+  djan:
+    build:
+      context: djan/
+    ports:
+      - "8000:8000"
+    volumes:
+      - /tmp/in:/usr/share/
+  pth:
+    build:
+      context: pth/
+    volumes:
+     - /tmp/in/:/usr/share/
