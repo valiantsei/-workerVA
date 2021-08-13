@@ -1,16 +1,23 @@
-import os
 from django.shortcuts import render
 
 # Create your views here.
-# pages/views.py
 from django.http import HttpResponse
+from django import forms
+from .models import Post
 
-
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'text',)
+def post_new(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            with open('/tmp/1tmp','a+') as f:
+                 f.write(form.cleaned_data['title'])
+                 f.write('\n')
+    else:
+        form = PostForm()
+    return render(request, 'post.html', {'form': form})
 def homePageView(request):
-#    if not os.path.exists('/usr//ipTmp'):
-#        with open('/tmp/in/ipTmp','w') as f:
-#            f.write('1.1.1.1/32\n')
-#    else:
-    with open('/usr/share/ipTmp','a+') as f:
-         f.write('1.1.1.1/32\n')
-    return HttpResponse('Hello, World! bbbb')
+    return HttpResponse('Hello, World!')
