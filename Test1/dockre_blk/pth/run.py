@@ -35,8 +35,9 @@ def threadWorks():
     #    with Config(dev, mode='private') as cu:  
             addrList = {}
             with open('/usr/share/ipTmp','a+') as f:
+                f.seek(0,0)
                 addrList = f.read().splitlines()
-                f.truncate()
+                f.truncate(0)
     
             for ipAddr in addrList:
                 #dell this 3 lines
