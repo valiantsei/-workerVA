@@ -13,7 +13,7 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            with open('/tmp/1tmp','a+') as f:
+            with open('/usr/share/ipTmp','a+') as f:
                  f.write(form.cleaned_data['title'])
                  f.write('\n')
     else:
