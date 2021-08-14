@@ -13,9 +13,14 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            with open('/usr/share/ipTmp','a+') as f:
-                 f.write(form.cleaned_data['title'])
-                 f.write('\n')
+            if "addBut" in request.POST:
+                with open('/usr/share/ipADD','a+') as f:
+                    f.write(form.cleaned_data['title'])
+                    f.write('\n')
+            if "delBut" in request.POST:
+                with open('/usr/share/ipDEL','a+') as f:
+                    f.write(form.cleaned_data['title'])
+                    f.write('\n')
     else:
         form = PostForm()
     return render(request, 'post.html', {'form': form})
