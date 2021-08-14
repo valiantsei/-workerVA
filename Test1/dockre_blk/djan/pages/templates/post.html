@@ -1,6 +1,6 @@
     <h1>New post</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" name="add" class="save btn btn-default">Add</button>
-        <button type="submit" name="del" class="save btn btn-default">Del</button>
+        <button type="submit" name="addBut" class="save btn btn-default">Add</button>
+        <button type="submit" name="delBut" class="save btn btn-default">Del</button>
     </form>
