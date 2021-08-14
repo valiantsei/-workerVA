@@ -19,37 +19,60 @@ def checkAddrMask(ipMask):
                             return False
                     return True
     return False
+def junSend(host_name,user_name,passw_name,command):
+    #how insert host pass ....
+    try:
+        dev = Device(host=host_name, user=user_name, password=passw_name)
+        dev.open()
+        dev.timeout = 300
+    except ConnectError as err:
+        print ("Cannot connect to device: {0}".format(err))
+        return
+    with Config(dev, mode='private') as cu:  
+        #cu.load('set firewall filter F-EGRESS term DENY-ATTACKERS from source-address '+ ipAddr, format='set')
+        cu.load(command, format='set')
+        if cu.diff():
+            cu.commit()
+        cu.commit()
+    dev.close()
+	
+hostList=['1.1.1.1','2.2.2.2','3.3.3.3']
+userList=['a1','a2','a3']
+passList=['b1','b2','b3']
 
 def threadWorks():
-    if os.path.exists('/usr/share/ipTmp'):
-    # how insert host pass ....
-    #    try:
-    #        dev = Device(host=host_name, user=user_name, password=passw_name)
-    #        dev.open()
-    #        dev.timeout = 300
-    #    except ConnectError as err:
-    #        print ("Cannot connect to device: {0}".format(err))
-    #        return
+    if os.path.exists('/usr/share/ipADD'):
+        addrList = {}
+        with open('/usr/share/ipTmp','a+') as f:
+            f.seek(0,0)
+            addrList = f.read().splitlines()
+            f.truncate(0)
     
-        if True:#after del
-    #    with Config(dev, mode='private') as cu:  
-            addrList = {}
-            with open('/usr/share/ipTmp','a+') as f:
-                f.seek(0,0)
-                addrList = f.read().splitlines()
-                f.truncate(0)
+        for ipAddr in addrList:
+            if checkAddrMask(ipAddr):
+                commandTmp = 'command for add ip to blk '+ ipAddr
+                for i in range(hostList):
+                    junSend(hostList[i],userList[i],passList[i],commandTmp)
+                with open('/usr/share/tmp','w') as f:
+                    f.write(ipAddr)
+
+    if os.path.exists('/usr/share/ipDEL'):
+        addrList = {}
+        with open('/usr/share/ipTmp','a+') as f:
+            f.seek(0,0)
+            addrList = f.read().splitlines()
+            f.truncate(0)
     
-            for ipAddr in addrList:
-                #dell this 3 lines
-                if checkAddrMask(ipAddr):
-                    with open('/usr/share/tmp','w') as f:
-                        f.write(ipAddr)
-    #                cu.load('set firewall filter F-EGRESS term DENY-ATTACKERS from source-address '+ ipAddr, format='set')
-    #        if cu.diff():
-    #            cu.commit()
-    #        cu.commit()
-    #    dev.close()
-							#change time to 1800.0
+        for ipAddr in addrList:
+            if checkAddrMask(ipAddr):
+                commandTmp = 'command for del ip in list blk '+ ipAddr
+                for i in range(hostList):
+                    junSend(hostList[i],userList[i],passList[i],commandTmp)
+
+                with open('/usr/share/tmp','w') as f:
+                    f.write(ipAddr)
+       
+    #change time to 1800.0
     timer = threading.Timer(180.0, threadWorks)
     timer.start()
 
