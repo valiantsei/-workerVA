@@ -52,8 +52,6 @@ def threadWorks():
                 commandTmp = 'command for add ip to blk '+ ipAddr
                 for i in range(len(hostList)):
                     junSend(hostList[i],userList[i],passList[i],commandTmp)
-                with open('/usr/share/tmp','w') as f:
-                    f.write(ipAddr)
 
     if os.path.exists('/usr/share/ipDEL'):
         addrList = {}
@@ -67,9 +65,6 @@ def threadWorks():
                 commandTmp = 'command for del ip in list blk '+ ipAddr
                 for i in range(len(hostList)):
                     junSend(hostList[i],userList[i],passList[i],commandTmp)
-
-                with open('/usr/share/tmp','w') as f:
-                    f.write(ipAddr)
        
     #change time to 1800.0
     timer = threading.Timer(180.0, threadWorks)
