@@ -42,7 +42,7 @@ passList=['b1','b2','b3']
 def threadWorks():
     if os.path.exists('/usr/share/ipADD'):
         addrList = {}
-        with open('/usr/share/ipTmp','a+') as f:
+        with open('/usr/share/ipADD','a+') as f:
             f.seek(0,0)
             addrList = f.read().splitlines()
             f.truncate(0)
@@ -57,7 +57,7 @@ def threadWorks():
 
     if os.path.exists('/usr/share/ipDEL'):
         addrList = {}
-        with open('/usr/share/ipTmp','a+') as f:
+        with open('/usr/share/ipADD','a+') as f:
             f.seek(0,0)
             addrList = f.read().splitlines()
             f.truncate(0)
