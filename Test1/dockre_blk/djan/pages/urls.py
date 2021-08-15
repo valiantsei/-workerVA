@@ -5,6 +5,6 @@ from .views import homePageView
 from .views import post_new
 
 urlpatterns = [
-    path('', homePageView, name='home'),
-    path('1/',post_new, name='post_new'),
+    path('1/', homePageView, name='home'),
+    path('',post_new, name='post_new'),
 ]
