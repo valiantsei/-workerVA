@@ -20,7 +20,6 @@ def checkAddrMask(ipMask):
                     return True
     return False
 def junSend(host_name,user_name,passw_name,command):
-    #how insert host pass ....
     try:
         dev = Device(host=host_name, user=user_name, password=passw_name)
         dev.open()
