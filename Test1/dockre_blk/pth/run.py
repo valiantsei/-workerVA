@@ -57,7 +57,7 @@ def threadWorks():
 
     if os.path.exists('/usr/share/ipDEL'):
         addrList = {}
-        with open('/usr/share/ipADD','a+') as f:
+        with open('/usr/share/ipDEL','a+') as f:
             f.seek(0,0)
             addrList = f.read().splitlines()
             f.truncate(0)
