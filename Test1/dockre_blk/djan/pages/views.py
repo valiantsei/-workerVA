@@ -21,6 +21,8 @@ def post_new(request):
                 with open('/usr/share/ipDEL','a+') as f:
                     f.write(form.cleaned_data['title'])
                     f.write('\n')
+        else:
+            return render(request, 'post.html', {'form': form})
     form = PostForm()
     return render(request, 'post.html', {'form': form})
 def homePageView(request):
