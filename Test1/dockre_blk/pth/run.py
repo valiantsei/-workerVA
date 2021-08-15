@@ -50,7 +50,7 @@ def threadWorks():
         for ipAddr in addrList:
             if checkAddrMask(ipAddr):
                 commandTmp = 'command for add ip to blk '+ ipAddr
-                for i in range(hostList):
+                for i in range(len(hostList)):
                     junSend(hostList[i],userList[i],passList[i],commandTmp)
                 with open('/usr/share/tmp','w') as f:
                     f.write(ipAddr)
